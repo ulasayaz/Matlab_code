@@ -1,0 +1,16 @@
+function [Frame,Proj]=gen_frame(d,M,N); % this function generates a random frame for R^d
+                                 % with dimensions in vector M, each
+                                 % subframe has an orthonormal basis for
+                                 % W_i
+Mtot=sum(M);
+Frame=zeros(d,Mtot);
+Proj=zeros(
+
+index=1;
+for j=1:N
+    x=randn(d,M(j));
+    x=orth(x);
+    Frame(:,index:index+M(j)-1)=x;
+    index=index+M(j);
+end
+    

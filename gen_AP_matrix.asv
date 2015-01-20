@@ -1,0 +1,16 @@
+function [X]=gen_AP_matrix(Proj,m,N,d); % this function generates a block vector X with random sparsity pattern 
+                                            % for a given s, where each X_i
+                                            % belongs to W_i. Rows are our
+                                            % vectors. 
+
+X=zeros(m*d,N*d);
+
+for i=1:m
+    for j=1:N
+        a=randn;
+        X((i-1)*d+1:i*d,(j-1)*d+1:j*d)=a*Proj((j-1)*d+1:j*d,(j-1)*d+1:j*d);
+    end
+end
+
+X=X/sqrt(m);        
+    

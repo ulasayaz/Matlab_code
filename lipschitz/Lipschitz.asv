@@ -1,0 +1,20 @@
+m=20;
+N=40;
+d=10;
+
+trial=100;
+
+for i=1:trial;
+% we fix the dimension of each subspace to 1
+for i=1:N
+    M(i)=3;
+end
+
+[Frame,Proj]=gen_frame(M,N,d);
+
+A=randn(m,N);
+AP=gen_AP_matrix(Proj,A,m,N,d);
+
+norm(A)
+norm(AP)
+

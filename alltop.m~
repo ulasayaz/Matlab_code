@@ -1,0 +1,27 @@
+d=5;
+
+N=d^2;
+
+M=zeros(N,1);
+% we fix the dimension of each subspace to 1
+for k=1:N
+    M(k)=1;
+end
+
+x=zeros(d,1);
+% define alltop vector
+for k=1:d
+    x(k)=exp(1i*2*pi*k^3/d)/sqrt(d);
+end
+
+Frame=zeros(d,N);
+
+for l=1:d
+    for k=1:d
+        Frame(:,(l-1)*d+k)=modul(trans(x,k),l);
+    end
+end
+
+alfa=min_angle(Frame,M,N);
+lambda=max(alfa)
+mean=sum(alfa)/length(alfa)

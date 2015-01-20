@@ -1,0 +1,28 @@
+N=40;
+
+d=[6:2:30];
+
+S=size(d,2);
+lambda=zeros(S,1);
+
+M=zeros(N,1);
+
+% we fix the dimension of each subspace to 1
+for i=1:N
+    M(i)=1;
+end
+Mtot=sum(M);
+
+try=10;
+    for i=1:S
+        for t=1:t
+                Frame=zeros(d(i),Mtot);
+                for k=1:N
+                    r=randn(d(i),1);
+                    Frame(:,k)=r/norm(r);
+                end
+                lambda(i)=lambda(i)+min_angle(Frame,M,N);
+            end
+        end
+    end
+    

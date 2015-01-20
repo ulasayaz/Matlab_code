@@ -1,0 +1,95 @@
+% m=6;
+% 
+% A = rand(m);
+% A = triu(A) + triu(A,1)';
+% for i=1:m
+%     A(i,i)=0;
+% end
+% 
+% S=0;
+% 
+% for i=1:m
+%     S=S+max(A(i,:));
+% end
+% 
+% S
+% mean=sum(A(:))/(m-1)
+
+N=500;
+d=10;
+
+
+M=zeros(N,1);
+% we fix the dimension of each subspace to 1
+for i=1:N
+    M(i)=1;
+end
+
+clear AP;
+clear Proj;
+
+[Frame,Proj]=gen_frame(M,N,d);
+
+PCOL=zeros(N*d,d);
+
+for j=1:N
+    b=bernoulli(1,1);
+    %b=randn;
+    PCOL((j-1)*d+1:j*d,:)= b * block(Proj,d,j,j);
+end
+
+[alfa,ALFA]=min_angle(Frame,M,N);
+lambda=max(alfa)
+mean=sum(alfa)/length(alfa)
+
+BETA=triu(ALFA); %upper triangular part of ALFA
+
+% we will find min_i \sum_j \alfa_ij^2
+% and max_i \sum_j \alfa_ij^2 of matrix ALFA
+rownorm=zeros(N,1);
+
+for i=1:N % create a vector with \ell_2 norm^2 of the rows of ALFA
+    rownorm(i)=norm(ALFA(i,:))^2;
+end
+
+max_norm=max(rownorm)
+min_norm=min(rownorm)
+c0=mean*N
+c00=lambda*N
+% 
+% x=norm(PCOL)
+% 
+% c1=sqrt(1+lambda*N)
+% c2=sqrt(1+mean*N)
+% c3=sqrt(1+norm(ALFA))
+% c4=sqrt(1+norm(ALFA,1))
+
+
+
+
+%%
+% a similar experiment with angles produced as rand numbers. not actual
+% angles between subspaces.
+N=100;
+d=8;
+
+A=zeros(N,N);
+
+for i=1:N-1
+    for j=i+1:N
+        a=rand;
+        A(i,j)=a;
+        A(j,i)=a;
+    end
+end
+
+tot=N*(N-1);
+mean=sum(A(:))/tot;
+
+d1=mean*N
+d2=norm(A)
+d3=norm(A,1)
+d4=max(A(:))*N
+
+
+

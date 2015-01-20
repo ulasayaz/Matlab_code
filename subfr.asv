@@ -1,0 +1,5 @@
+function [X]=subfr(f,M,i); %subfr returns the orthogonal matrix consisting of a basis for the 
+                           %subspace W_i
+
+s=sum(M(1:i-1));
+X=f(:,(s+1):(s+M(i)));

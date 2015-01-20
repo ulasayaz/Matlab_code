@@ -1,0 +1,23 @@
+function draw2D(x);
+
+s=length(x);
+ if s == 2
+      X=zeros(2,1);
+ Y=zeros(2,1);
+ 
+ X(1)=x(1);
+ Y(1)=x(2);
+ 
+ line(X,Y)
+ else if s == 1
+      X=zeros(2,1);
+ Y=zeros(2,1);
+ 
+ X(1)=real(x);
+ Y(1)=imag(x);
+ 
+ line(X,Y)
+     end
+ else 
+     
+ 

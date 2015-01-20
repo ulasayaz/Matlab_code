@@ -1,0 +1,32 @@
+function [X,ind,lambda]=gen_sparse_vec(Frame,M,N,d,s); 
+% this function generates a block vector X with random sparsity pattern 
+% for a given s, where each X_i belongs to W_i. Rows are our vectors. 
+
+lambda=0;                                            
+
+X=zeros(N*d,1);
+
+%choosing the sparse index set randomly
+p=randperm(N);
+ind=p(1:s);
+ind=sort(ind);
+%ind
+%%%
+
+for i=1:s
+    X((ind(i)-1)*d+1:ind(i)*d)=subfr(Frame,M,ind(i))*randn(M(ind(i)),1);
+end
+
+% for j=1:s-1
+%     for k=j+1:s
+%         y=X((ind(j)-1)*d+1:ind(j)*d);
+%         z=X((ind(k)-1)*d+1:ind(k)*d);
+%         y=y/norm(y);
+%         z=z/norm(z);
+%         a=abs(y'*z);
+%         if a > lambda
+%             lambda=a;
+%         end
+%     end
+% end
+
